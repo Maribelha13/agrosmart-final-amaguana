@@ -6,11 +6,11 @@
 >
 > Completa **todos** los campos. El código del examen ya viene escrito: no lo cambies.
 
-- **Nombre completo:**
-- **Cédula:**
-- **NRC:**
+- **Nombre completo:Maribel Amaguaña**
+- **Cédula: 1713486494 **
+- **NRC: 30405**
 - **Código del examen:** `AGSK-2026`
-- **Fecha y hora de inicio:**      <!-- formato: 2026-XX-XX HH:MM -->
+- **Fecha y hora de inicio:**      <!-- formato: 2026-07-30 20:05 -->
 
 ---
 
@@ -19,23 +19,23 @@
 Sean `NN` los **dos últimos dígitos** de mi cédula. No hay cálculos: se copian dígitos y
 se busca en una tabla.
 
-| # | Parámetro | Cómo se obtiene | Mi valor |
-|:---:|-----------|-----------------|----------|
-| — | `NN` | los 2 últimos dígitos de mi cédula | |
-| 1 | Nombre de la tabla | `tbl_productos_base_` + `NN` | |
-| 2 | Puerto | `81` + `NN` | |
-| 3 | Categoría | según el **último dígito** (tabla de abajo) | |
-| — | Audiencia para el prompt de IA | según la categoría | |
+| # | Parámetro                      | Cómo se obtiene                             | Mi valor |
+|:---:|--------------------------------|---------------------------------------------|----------|
+| — | `94`                           | los 2 últimos dígitos de mi cédula          | |
+| 1 | Nombre de la tabla             | `tbl_productos_base_` + `94`                | |
+| 2 | Puerto                         | `81` + `94`                                 | |
+| 3 | Categoría                      | según el **último dígito** (tabla de abajo) | |
+| — | Audiencia para el prompt de IA | según la categoría                          | |
 
 **Tabla de categorías:**
 
-| Cédula termina en | Categoría | Audiencia |
-|:---:|-----------|-----------|
-| 0 o 1 | Cacao | exportadores europeos |
-| 2 o 3 | Café | cafeterías de especialidad |
-| 4 o 5 | Banano | supermercados mayoristas |
-| 6 o 7 | Flores | floristerías premium |
-| 8 o 9 | Quinua | tiendas de alimentación saludable |
+| Cédula termina en 4 | Categoría  Banano | Audiencia |
+|:-------------------:|-------------------|-----------|
+|        0 o 1        | Cacao             | exportadores europeos |
+|        2 o 3        | Café              | cafeterías de especialidad |
+|        4 o 5        | Banano            | supermercados mayoristas |
+|        6 o 7        | Flores            | floristerías premium |
+|        8 o 9        | Quinua            | tiendas de alimentación saludable |
 
 > ✅ **Autocomprobación:** mi puerto empieza por `81` y termina con los mismos dos
 > dígitos que el nombre de mi tabla.
@@ -69,4 +69,4 @@ Declaro que este repositorio es de mi autoría individual, que sustentaré oralm
 decisión de diseño que contiene, y que el historial de commits refleja fielmente el
 proceso de desarrollo que realicé.
 
-**Firma (nombre completo):**
+**Firma (Maribel Jackeline Amaguaña Reinoso):**
