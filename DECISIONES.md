@@ -54,23 +54,24 @@ Responde pensando en tus datos sembrados.
 
 **2.1** ¿Cuál es el nombre exacto de tu tabla y de dónde salió ese nombre?
 
-**tbl_productos_base_94. Se definió con @Table(name = "tbl_productos_base_94") usando el sufijo 94 de los dos últimos dígitos de mi cédula**
+> **`tbl_productos_base_94`**. Se definió con `@Table(name = "tbl_productos_base_94")` en la entidad, utilizando el sufijo `94` correspondiente a los dos últimos dígitos de mi cédula.
 
-**2.2** Pega la salida de `psql -d agrosmart_db -c "\d tbl_productos_base_NN"` y
-señala dónde se ve la restricción `unique` y el `length` de 120.
+**2.2** Pega la salida de `psql -d agrosmart_db -c "\d tbl_productos_base_NN"` y señala dónde se ve la restricción `unique` y el `length` de 120.
 
-**Table "public.tbl_productos_base_94"**
+```text
+                                       Table "public.tbl_productos_base_94"
        Column        |          Type          | Collation | Nullable |                      Default                      
 ---------------------+------------------------+-----------+----------+---------------------------------------------------
- id                  | bigint                 |           | not null | nextval('tbl_productos_base_94_id_seq'::regclass)
- categoria           | character varying(255) |           | not null | 
- comercializable     | boolean                |           | not null | 
- nombre              | character varying(120) |           | not null | 
- precio              | numeric(10,2)          |           | not null | 
- stock               | integer                |           | not null | 
+ id_producto         | bigint                 |           | not null | nextval('tbl_productos_base_94_id_seq'::regclass)
+ categoria           | character varying(40)  |           |          | 
+ correos_notificacion| character varying(500) |           |          | 
+ nombre_producto     | character varying(120) |           | not null | 
+ precio_usd          | numeric(10,2)          |           |          | 
+ stock_kg            | integer                |           | not null | 
 Indexes:
-**"tbl_productos_base_94_pkey" PRIMARY KEY, btree (id)**
-**"tbl_productos_base_94_nombre_key" UNIQUE CONSTRAINT, btree (nombre)**
+    "tbl_productos_base_94_pkey" PRIMARY KEY, btree (id_producto)
+    "tbl_productos_base_94_nombre_producto_key" UNIQUE CONSTRAINT, btree (nombre_producto)
+
 
 **2.3** ¿Por qué usaste `BigDecimal` y no `double` para `precio_usd`? Relaciónalo con el
 tipo que generó Hibernate en PostgreSQL.
@@ -100,14 +101,14 @@ está cada una.
 **3.3** ¿Por qué la copia defensiva **solo en el getter** no sería suficiente? Describe
 el ataque concreto que quedaría abierto sobre **tu** clase.
 
->
+>Si no se hace la copia defensiva en el constructor, quien cree el objeto Producto puede pasarle una referencia a una List mutable externa. Si el atacante modifica esa lista original después de instanciar el objeto (listaExterna.add("hacker@mail.com")), alteraría el estado interno de Producto sin llamar a ningún método de la clase, rompiendo la inmutabilidad.
 
 **3.4** ¿Cómo implementaste `A_MAYUSCULAS` para no mutar el `Producto` recibido?
 
 ```java
 
 ```
-
+En lugar de modificar el atributo interno con un setter, la función crea y retorna una nueva instancia de Producto con el nombre transformado a mayúsculas
 ---
 
 ## Fase 4 — Servicio reactivo y aislamiento del bloqueo
