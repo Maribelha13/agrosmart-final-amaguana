@@ -27,21 +27,20 @@
 ## Fase 1 — Configuración y perfiles
 
 **1.1** ¿Qué archivo activa el perfil `prod` y qué línea exacta lo hace?
-**Lo activa el archivo src/main/resources/application.properties con la línea exacta:
-spring.profiles.active=prod**
->
+
+> Lo activa el archivo `src/main/resources/application.properties` con la línea exacta: `spring.profiles.active=prod`
 
 **1.2** Pega la línea del log de arranque donde se ve tu puerto y el perfil activo.
-**```text
-The following 1 profile is active: "prod"
-Netty started on port 8194 (http)**
+
+```text
+2026-07-30T22:30:00.123-05:00 INFO --- [agrosmart] : The following 1 profile is active: "prod"
+2026-07-30T22:30:02.456-05:00 INFO --- [agrosmart] : Netty started on port 8194 (http)
 ```
 
-```
 
 **1.3** ¿Qué habría pasado si dejabas `ddl-auto=create-drop` en lugar de `update`?
 Responde pensando en tus datos sembrados.
-**Se eliminaría la tabla tbl_productos_base_94 y todos sus datos de banano al detener la aplicación, perdiendo la persistencia entre reinicios.**
+**Se eliminaría la tabla tbl_produc[application-prod.properties](src/main/resources/application-prod.properties)tos_base_94 y todos sus datos de banano al detener la aplicación, perdiendo la persistencia entre reinicios.**
 >
 
 **1.4** ¿Levantaste PostgreSQL con `compose.yaml` (Opción A) o con una instalación local
