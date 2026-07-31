@@ -55,13 +55,12 @@ Responde pensando en tus datos sembrados.
 
 **2.1** ¿Cuál es el nombre exacto de tu tabla y de dónde salió ese nombre?
 
->tbl_productos_base_94. Se definió con @Table(name = "tbl_productos_base_94") usando el sufijo 94 de los dos últimos dígitos de mi cédula
+**tbl_productos_base_94. Se definió con @Table(name = "tbl_productos_base_94") usando el sufijo 94 de los dos últimos dígitos de mi cédula**
 
 **2.2** Pega la salida de `psql -d agrosmart_db -c "\d tbl_productos_base_NN"` y
 señala dónde se ve la restricción `unique` y el `length` de 120.
 
-```
-Table "public.tbl_productos_base_94"
+**Table "public.tbl_productos_base_94"**
        Column        |          Type          | Collation | Nullable |                      Default                      
 ---------------------+------------------------+-----------+----------+---------------------------------------------------
  id                  | bigint                 |           | not null | nextval('tbl_productos_base_94_id_seq'::regclass)
@@ -71,21 +70,19 @@ Table "public.tbl_productos_base_94"
  precio              | numeric(10,2)          |           | not null | 
  stock               | integer                |           | not null | 
 Indexes:
-    "tbl_productos_base_94_pkey" PRIMARY KEY, btree (id)
-    "tbl_productos_base_94_nombre_key" UNIQUE CONSTRAINT, btree (nombre)
-```
+**"tbl_productos_base_94_pkey" PRIMARY KEY, btree (id)**
+**"tbl_productos_base_94_nombre_key" UNIQUE CONSTRAINT, btree (nombre)**
 
 **2.3** ¿Por qué usaste `BigDecimal` y no `double` para `precio_usd`? Relaciónalo con el
 tipo que generó Hibernate en PostgreSQL.
 
->BigDecimal evita los errores de redondeo del tipo double en valores monetarios. Hibernate lo mapea en PostgreSQL como numeric(10,2), garantizando precisión exacta a nivel de BD.
+**BigDecimal evita los errores de redondeo del tipo double en valores monetarios. Hibernate lo mapea en PostgreSQL como numeric(10,2), garantizando precisión exacta a nivel de BD.**
 
 **2.4** ¿Cómo hiciste idempotente tu siembra y qué pasaría en el segundo arranque si no
 lo fuera? (piensa en la restricción `unique` de `nombre_producto`)
 
->Se garantizó validando if (repository.count() == 0) en DataInitializer. Sin esto, al reiniciar el servidor la BD reintentaría insertar los productos y fallaría con una excepción DataIntegrityViolationException por violar la restricción unique del nombre.
+**Se garantizó validando if (repository.count() == 0) en DataInitializer. Sin esto, al reiniciar el servidor la BD reintentaría insertar los productos y fallaría con una excepción DataIntegrityViolationException por violar la restricción unique del nombre.**
 
----
 
 ## Fase 3 — Modelo inmutable y lógica funcional
 
