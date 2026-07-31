@@ -10,7 +10,7 @@
 - **Cédula: 1713486494 **
 - **NRC: 30405**
 - **Código del examen:** `AGSK-2026`
-- **Fecha y hora de inicio:**      <!-- formato: 2026-07-30 20:05 -->
+- **Fecha y hora de inicio: 026-07-30 20:05** <!-- formato: 2026-07-30 20:05 -->
 
 ---
 
