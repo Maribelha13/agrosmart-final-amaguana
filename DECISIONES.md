@@ -52,63 +52,64 @@ Responde pensando en tus datos sembrados.
 
 ## Fase 2 — Persistencia con JPA/Hibernate
 
+
+
 **2.1** ¿Cuál es el nombre exacto de tu tabla y de dónde salió ese nombre?
+**tbl_productos_base_94. Se definió con @Table(name = "tbl_productos_base_94") usando el sufijo 94 de los dos últimos dígitos de mi cédula**
+>
 
-> **`tbl_productos_base_94`**. Se definió con `@Table(name = "tbl_productos_base_94")` en la entidad, utilizando el sufijo `94` correspondiente a los dos últimos dígitos de mi cédula.
+**2.2** Pega la salida de `psql -d agrosmart_db -c "\d tbl_productos_base_NN"` y
+señala dónde se ve la restricción `unique` y el `length` de 120.
+**El length de 120 se valida en character varying(120) de nombre y la restricción unique en UNIQUE CONSTRAINT**
+**"tbl_productos_base_94_pkey" PRIMARY KEY, btree (id)
+"tbl_productos_base_94_nombre_key" UNIQUE CONSTRAINT, btree (nombre)**
+```
 
-**2.2** Pega la salida de `psql -d agrosmart_db -c "\d tbl_productos_base_NN"` y señala dónde se ve la restricción `unique` y el `length` de 120.
-
-```text
-                                       Table "public.tbl_productos_base_94"
-       Column        |          Type          | Collation | Nullable |                      Default                      
----------------------+------------------------+-----------+----------+---------------------------------------------------
- id_producto         | bigint                 |           | not null | nextval('tbl_productos_base_94_id_seq'::regclass)
- categoria           | character varying(40)  |           |          | 
- correos_notificacion| character varying(500) |           |          | 
- nombre_producto     | character varying(120) |           | not null | 
- precio_usd          | numeric(10,2)          |           |          | 
- stock_kg            | integer                |           | not null | 
-Indexes:
-    "tbl_productos_base_94_pkey" PRIMARY KEY, btree (id_producto)
-    "tbl_productos_base_94_nombre_producto_key" UNIQUE CONSTRAINT, btree (nombre_producto)
-
-
+```
 **2.3** ¿Por qué usaste `BigDecimal` y no `double` para `precio_usd`? Relaciónalo con el
-tipo que generó Hibernate en PostgreSQL.
+tipo que generó Hibernate en PostgreSQLBigDecimal evita los errores de redondeo del tipo double en valores monetarios. Hibernate lo mapea en PostgreSQL como numeric(10,2), garantizando precisión exacta a nivel de BD..
 
-**BigDecimal evita los errores de redondeo del tipo double en valores monetarios. Hibernate lo mapea en PostgreSQL como numeric(10,2), garantizando precisión exacta a nivel de BD.**
+>
 
 **2.4** ¿Cómo hiciste idempotente tu siembra y qué pasaría en el segundo arranque si no
 lo fuera? (piensa en la restricción `unique` de `nombre_producto`)
-
 **Se garantizó validando if (repository.count() == 0) en DataInitializer. Sin esto, al reiniciar el servidor la BD reintentaría insertar los productos y fallaría con una excepción DataIntegrityViolationException por violar la restricción unique del nombre.**
 
+
+>
+
+---
 
 ## Fase 3 — Modelo inmutable y lógica funcional
 
 **3.1** ¿Por qué tienes **dos** clases (`ProductoEntity` y `Producto`) en lugar de una?
 ¿Qué te impide hacer inmutable directamente la entidad de Hibernate?
-
+**Se separan para respetar la arquitectura limpia (Clean Architecture). ProductoEntity es una clase mutable requerida por JPA/Hibernate, ya que el ORM exige un constructor público sin argumentos, getters y setters para mapear la BD. Producto es el modelo de dominio inmutable (record o clase con atributos final), libre de anotaciones de persistencia y protegido de modificaciones externas.**
 >
 
 **3.2** Escribe el código exacto de **tus dos** copias defensivas e indica en qué línea
 está cada una.
+**// Copia defensiva 1: En el constructor 
+this.correosNotificacion = correosNotificacion != null ? List.copyOf(correosNotificacion) : List.of();
 
+// Copia defensiva 2: En el getter 
+public List<String> getCorreosNotificacion() {
+return List.copyOf(this.correosNotificacion);
+}**
 ```java
 
 ```
 
 **3.3** ¿Por qué la copia defensiva **solo en el getter** no sería suficiente? Describe
 el ataque concreto que quedaría abierto sobre **tu** clase.
-
->Si no se hace la copia defensiva en el constructor, quien cree el objeto Producto puede pasarle una referencia a una List mutable externa. Si el atacante modifica esa lista original después de instanciar el objeto (listaExterna.add("hacker@mail.com")), alteraría el estado interno de Producto sin llamar a ningún método de la clase, rompiendo la inmutabilidad.
+**Si no se hace la copia defensiva en el constructor, quien cree el objeto Producto puede pasarle una referencia a una List mutable externa. Si el atacante modifica esa lista original después de instanciar el objeto (listaExterna.add("hacker@mail.com")), alteraría el estado interno de Producto sin llamar a ningún método de la clase, rompiendo la inmutabilidad.**
+>
 
 **3.4** ¿Cómo implementaste `A_MAYUSCULAS` para no mutar el `Producto` recibido?
-
+**En lugar de modificar el atributo interno con un setter, la función crea y retorna una nueva instancia de Producto con el nombre transformado a mayúsculas**
 ```java
 
 ```
-En lugar de modificar el atributo interno con un setter, la función crea y retorna una nueva instancia de Producto con el nombre transformado a mayúsculas
 ---
 
 ## Fase 4 — Servicio reactivo y aislamiento del bloqueo
