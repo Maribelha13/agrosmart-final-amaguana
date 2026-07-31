@@ -21,11 +21,11 @@ public class DataInitializer implements CommandLineRunner {
     public void run(String... args) {
         if (repository.count() == 0) {
             List<ProductoEntity> semillero = List.of(
-                    new ProductoEntity(null, "Banano Cavendish Orgánico", "Banano", new BigDecimal("12.50"), 150, true),
-                    new ProductoEntity(null, "Banano Orito Premium", "Banano", new BigDecimal("8.75"), 200, true),
-                    new ProductoEntity(null, "Banano Rojo de Exportación", "Banano", new BigDecimal("15.00"), 80, true),
-                    new ProductoEntity(null, "Banano Plátano Verde Descarte", "Banano", new BigDecimal("4.20"), 0, false),
-                    new ProductoEntity(null, "Banano Macho Comercial", "Banano", new BigDecimal("9.90"), 120, true)
+                    new ProductoEntity(null, "Banano Cavendish Orgánico", "Banano", new BigDecimal("1.50"), 100, "Orgánico"),
+                    new ProductoEntity(null, "Banano Orito Premium", "Banano", new BigDecimal("1.20"), 80, "Premium"),
+                    new ProductoEntity(null, "Banano Rojo de Exportación", "Banano", new BigDecimal("2.00"), 50, "Exportación"),
+                    new ProductoEntity(null, "Banano Plátano Verde Descarte", "Banano", new BigDecimal("0.80"), 200, "Descarte"),
+                    new ProductoEntity(null, "Banano Macho Comercial", "Banano", new BigDecimal("1.00"), 150, "Comercial")
             );
             repository.saveAll(semillero);
         }

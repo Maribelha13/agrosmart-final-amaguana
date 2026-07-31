@@ -1,7 +1,9 @@
 package ec.edu.espe.agrosmart.dto;
 
+import java.math.BigDecimal;
+
 public record AnalisisComercialDTO(
-        ProductoDTO producto,
-        String recomendacionIA,
-        String viabilidadMercado
+        Long idProducto,
+        String recomendacion,
+        BigDecimal puntajeViabilidad
 ) {}

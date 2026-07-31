@@ -4,55 +4,57 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "tbl_productos_base_94")
+@Table(name = "productos")
 public class ProductoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idProducto;
 
-    @Column(nullable = false, length = 120, unique = true)
-    private String nombre;
+    @Column(name = "nombre_producto", nullable = false)
+    private String nombreProducto;
 
-    @Column(nullable = false)
+    @Column(name = "categoria")
     private String categoria;
 
-    @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal precio;
+    @Column(name = "precio_usd")
+    private BigDecimal precioUsd;
 
-    @Column(nullable = false)
-    private Integer stock;
+    @Column(name = "stock_kg")
+    private Integer stockKg;
 
-    @Column(nullable = false)
-    private Boolean comercializable;
+    @Column(name = "descripcion")
+    private String descripcion;
 
-    public ProductoEntity() {
-    }
+    // Constructor vacío (obligatorio para JPA)
+    public ProductoEntity() {}
 
-    public ProductoEntity(Long id, String nombre, String categoria, BigDecimal precio, Integer stock, Boolean comercializable) {
-        this.id = id;
-        this.nombre = nombre;
+    // Constructor con 6 parámetros para el DataInitializer
+    public ProductoEntity(Long idProducto, String nombreProducto, String categoria, BigDecimal precioUsd, Integer stockKg, String descripcion) {
+        this.idProducto = idProducto;
+        this.nombreProducto = nombreProducto;
         this.categoria = categoria;
-        this.precio = precio;
-        this.stock = stock;
-        this.comercializable = comercializable;
+        this.precioUsd = precioUsd;
+        this.stockKg = stockKg;
+        this.descripcion = descripcion;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    // Getters y Setters
+    public Long getIdProducto() { return idProducto; }
+    public void setIdProducto(Long idProducto) { this.idProducto = idProducto; }
 
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public String getNombreProducto() { return nombreProducto; }
+    public void setNombreProducto(String nombreProducto) { this.nombreProducto = nombreProducto; }
 
     public String getCategoria() { return categoria; }
     public void setCategoria(String categoria) { this.categoria = categoria; }
 
-    public BigDecimal getPrecio() { return precio; }
-    public void setPrecio(BigDecimal precio) { this.precio = precio; }
+    public BigDecimal getPrecioUsd() { return precioUsd; }
+    public void setPrecioUsd(BigDecimal precioUsd) { this.precioUsd = precioUsd; }
 
-    public Integer getStock() { return stock; }
-    public void setStock(Integer stock) { this.stock = stock; }
+    public Integer getStockKg() { return stockKg; }
+    public void setStockKg(Integer stockKg) { this.stockKg = stockKg; }
 
-    public Boolean getComercializable() { return comercializable; }
-    public void setComercializable(Boolean comercializable) { this.comercializable = comercializable; }
+    public String getDescripcion() { return descripcion; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
 }
