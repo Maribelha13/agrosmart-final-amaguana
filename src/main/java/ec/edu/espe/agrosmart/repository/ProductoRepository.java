@@ -1,6 +1,6 @@
-package com.agrosmart.repository;
+package ec.edu.espe.agrosmart.repository;
 
-import com.agrosmart.entity.ProductoEntity;
+import ec.edu.espe.agrosmart.entity.ProductoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

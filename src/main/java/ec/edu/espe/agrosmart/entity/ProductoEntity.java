@@ -1,4 +1,4 @@
-package com.agrosmart.entity;
+package ec.edu.espe.agrosmart.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
