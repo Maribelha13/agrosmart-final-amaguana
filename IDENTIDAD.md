@@ -57,7 +57,7 @@ se busca en una tabla.
 > haberlo entregado y C8 se califica en nivel 1.
 
 - **Enlace al video (5 min, cámara + pantalla):https://youtu.be/2Eed37c5MqQ**
-- **Plataforma:YOUTUBE**                  <!-- Drive institucional / OneDrive / YouTube no listado -->
+- **Plataforma:YOUTUBE**  Drive https://drive.google.com/file/d/1fusWvwg4nBCFPxSKnqGHZE0BsgFKuhd-/view?usp=drive_link                <!-- Drive institucional / OneDrive / YouTube no listado -->
 - **Acceso verificado en incógnito:** PUBLICO  ☐ Sí
 - **Duración real:00:05:45**
 
